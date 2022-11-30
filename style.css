@@ -1,0 +1,212 @@
+:root {
+    --accentColor: darkgreen;
+    --fontSize: 14px;
+    --flyoutWidth: 25vw;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #FDFDFD;
+    font-size: var(--fontSize);
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    flex: 1;
+    padding: 2rem;
+}
+
+aside {
+    /* don't put container-type here -- it will prevent children from
+       assuming fixed position */
+    width: 4rem;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+aside .flyout {
+    container-type: size;
+
+    width: var(--flyoutWidth);
+    transform: translateX(calc(-1 * var(--flyoutWidth)));
+    height: 100%;
+    background-color: #E0E0E0;
+    padding: 1rem 2rem 2rem 2rem;
+    transition: transform 0.3s ease;
+    position: fixed;
+}
+
+aside .flyout > * {
+    max-width: calc(100% - 2rem);
+}
+
+#flyout-toggle {
+    position: absolute;
+    top: 2rem;
+    right: 1rem;
+    width:  2rem;
+    height:  2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+aside.open {
+    width: calc(var(--flyoutWidth) + 4rem);
+}
+
+aside.open .flyout {
+    transform: translateX(0);
+}
+
+aside .settings-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+aside .settings-buttons > button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    min-width: 30px;
+    border-width: 2px;
+    border-color: #E0E0E0;
+}
+
+aside .settings-buttons > button[data-selected] {
+   border-color: black;
+}
+
+h1 {
+    color: var(--accentColor);
+    margin: 0 0 18px;
+}
+
+.cards {
+    container-type: inline-size;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.card {
+    width: 100%;
+    padding: 1rem;
+    border: 2.5px solid var(--accentColor);
+    background: linear-gradient(to bottom, #FAFAFA, #EDEDED);
+    box-shadow: 0px 0px 8px 2px rgb(0, 0, 0, .15);
+    
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 2rem;
+    row-gap: 1rem;
+}
+
+.card-portrait {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-portrait img {
+    border-radius: 50%;
+    border: 5px solid var(--accentColor);
+}
+
+.card-portrait-caption {}
+
+.card-name {
+    font-weight: bold;
+    color: var(--accentColor);
+}
+
+.card-title {
+    font-style: italic;
+    font-size: .8rem;
+}
+
+.card-contact {}
+
+.card-contact>div:not(:last-child) {
+    margin-bottom: .5rem;
+}
+
+.card-contact>div {
+    color: var(--accentColor);
+    display: flex;
+    font-size: .8rem;
+}
+
+
+.card-phone .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: -2px -1px -3px -3px;
+}
+
+.card-fax .icon {
+    width: 1rem;
+    height: 1rem;
+    margin-right: .25rem;
+}
+
+.card-email .icon {
+    width: 1rem;
+    height: 1rem;
+    margin-right: .25rem;
+
+}
+
+@container (min-width: 450px) {
+    .card {
+        grid-template-columns: 1fr 2fr;
+        flex: 1;
+        min-width: 400px;
+    }
+
+    .card-portrait {
+        grid-column: 1;
+        grid-row: 1/3;
+    }
+
+    .card-portrait-caption {
+        grid-column: 2;
+        grid-row: 1;
+        border-bottom: 1px solid var(--accentColor);
+    }
+
+    .card-contact {
+        grid-column: 2;
+        grid-row: 2;
+    }
+}
+
+@container (max-width: 300px) {
+
+    aside .flyout > *:not(#flyout-toggle) {
+        position: relative;
+        left: -1rem;
+    }
+
+    aside .flyout h2 {
+        font-size: .8rem;
+        margin-top: 5rem;
+    }
+
+    aside .flyout h3 {
+        font-size: .7rem;
+    }
+
+    aside.open .flyout > *:not(#flyout-toggle) {
+        max-width: 100%;
+    }
+}
