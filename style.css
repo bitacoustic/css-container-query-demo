@@ -9,7 +9,6 @@ body {
     background-color: #FDFDFD;
     font-size: var(--fontSize);
     display: flex;
-    flex-direction: row-reverse;
     padding: 0;
     margin: 0;
 }
@@ -17,18 +16,21 @@ body {
 main {
     flex: 1;
     padding: 2rem;
+    order: 1;
 }
 
-aside {
-    /* don't put container-type here -- it will prevent children from
-       assuming fixed position */
+aside.flyout-container {
+    /* Don't put container-type here -- it will prevent children from
+       assuming fixed position, and this from scrolling */
     width: 4rem;
     transition: width 0.3s ease;
     position: relative;
+    order: 0;
 }
 
-aside .flyout {
+aside.flyout-container .flyout {
     container-type: size;
+    container-name: flyout;
 
     width: var(--flyoutWidth);
     transform: translateX(calc(-1 * var(--flyoutWidth)));
@@ -39,7 +41,7 @@ aside .flyout {
     position: fixed;
 }
 
-aside .flyout > * {
+aside.flyout-container .flyout>* {
     max-width: calc(100% - 2rem);
 }
 
@@ -47,8 +49,8 @@ aside .flyout > * {
     position: absolute;
     top: 2rem;
     right: 1rem;
-    width:  2rem;
-    height:  2rem;
+    width: 2rem;
+    height: 2rem;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -57,21 +59,25 @@ aside .flyout > * {
     font-size: 2rem;
 }
 
-aside.open {
+#flyout-toggle svg {
+    width: 100%; /* Safari */
+}
+
+aside.flyout-container.open {
     width: calc(var(--flyoutWidth) + 4rem);
 }
 
-aside.open .flyout {
+aside.flyout-container.open .flyout {
     transform: translateX(0);
 }
 
-aside .settings-buttons {
+aside.flyout-container .settings-buttons {
     display: flex;
     flex-wrap: wrap;
     gap: .5rem;
 }
 
-aside .settings-buttons > button {
+aside.flyout-container .settings-buttons>button {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -81,17 +87,24 @@ aside .settings-buttons > button {
     border-color: #E0E0E0;
 }
 
-aside .settings-buttons > button[data-selected] {
-   border-color: black;
+aside.flyout-container .settings-buttons>button[data-selected] {
+    border-color: black;
+}
+
+.container-context {
+    container-type: inline-size;
 }
 
 h1 {
+    container-type: inline-size;
+
     color: var(--accentColor);
     margin: 0 0 18px;
 }
 
 .cards {
     container-type: inline-size;
+    container-name: cards;
 
     display: flex;
     flex-wrap: wrap;
@@ -104,7 +117,7 @@ h1 {
     border: 2.5px solid var(--accentColor);
     background: linear-gradient(to bottom, #FAFAFA, #EDEDED);
     box-shadow: 0px 0px 8px 2px rgb(0, 0, 0, .15);
-    
+
     display: grid;
     grid-template-columns: 1fr;
     column-gap: 2rem;
@@ -122,8 +135,6 @@ h1 {
     border: 5px solid var(--accentColor);
 }
 
-.card-portrait-caption {}
-
 .card-name {
     font-weight: bold;
     color: var(--accentColor);
@@ -134,8 +145,6 @@ h1 {
     font-size: .8rem;
 }
 
-.card-contact {}
-
 .card-contact>div:not(:last-child) {
     margin-bottom: .5rem;
 }
@@ -145,7 +154,6 @@ h1 {
     display: flex;
     font-size: .8rem;
 }
-
 
 .card-phone .icon {
     width: 1.5rem;
@@ -163,10 +171,55 @@ h1 {
     width: 1rem;
     height: 1rem;
     margin-right: .25rem;
-
 }
 
-@container (min-width: 450px) {
+.info-container {
+    order: 2;
+    padding: 5rem 2rem 2rem 0;
+    font-size: 1rem;
+    box-sizing: border-box;
+    flex: 300px 0 0;
+}
+
+.info-container :first-child {
+    margin-top: 0;
+}
+
+.info-container span:not(#info-quote) {
+    font-weight: 700;
+}
+
+#info-quote {
+    display: block;
+    padding-left: 1rem;
+    border-left: 1px solid black;
+    margin-top: .5rem;
+}
+
+.info-container button {
+    cursor: pointer;
+}
+
+/* 
+======================================================================
+Container queries
+- Container context is nearest ancestor where a container-type was set
+======================================================================
+*/
+
+/* target a specific container */
+@container flyout (max-width: 300px) {
+    aside.flyout-container.open .flyout>*:not(#flyout-toggle) {
+        max-width: 100%;
+    }
+
+    .flyout>*:not(#flyout-toggle) {
+        position: relative;
+        left: -1rem;
+    }
+}
+
+@container cards (min-width: 450px) {
     .card {
         grid-template-columns: 1fr 2fr;
         flex: 1;
@@ -190,23 +243,70 @@ h1 {
     }
 }
 
-@container (max-width: 300px) {
-
-    aside .flyout > *:not(#flyout-toggle) {
-        position: relative;
-        left: -1rem;
+/* we don't care what container these are in */
+@container (max-width: 200px) {
+    h1 {
+        font-size: 1.25rem;
     }
 
-    aside .flyout h2 {
+    h2 {
         font-size: .8rem;
         margin-top: 5rem;
     }
 
-    aside .flyout h3 {
+    h3 {
         font-size: .7rem;
     }
+}
 
-    aside.open .flyout > *:not(#flyout-toggle) {
-        max-width: 100%;
+/* 
+======================================================================
+Media queries
+- Just regular media queries, NOT fallbacks
+======================================================================
+*/
+
+
+@media (max-width: 1023px) {
+    body {
+        flex-wrap: wrap;
+    }
+
+    aside.info-container {
+        flex: 100vw 0 0;
+        padding: 2rem 2rem 2rem 6rem;
     }
 }
+
+/* 
+======================================================================
+Container query fallbacks
+======================================================================
+*/
+
+/* Firefox */
+@-moz-document url-prefix() {
+    @media (min-width: 1024px) {
+        .card {
+            grid-template-columns: 1fr 2fr;
+            flex: 1;
+            min-width: 400px;
+        }
+    
+        .card-portrait {
+            grid-column: 1;
+            grid-row: 1/3;
+        }
+    
+        .card-portrait-caption {
+            grid-column: 2;
+            grid-row: 1;
+            border-bottom: 1px solid var(--accentColor);
+        }
+    
+        .card-contact {
+            grid-column: 2;
+            grid-row: 2;
+        }
+    }
+} 

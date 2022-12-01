@@ -11,10 +11,14 @@
 
 <body>
     <main>
-        <h1>Contacts</h1>
-        <div class="cards"></div>
+        <div class="container-context">
+            <h1>Contacts</h1>
+        </div>
+        <div class="cards">
+            <!-- cards render here -->
+        </div>
     </main>
-    <aside>
+    <aside class="flyout-container">
         <div class="flyout">
             <h2>Settings</h2>
             <h3>Font size</h3>
@@ -25,20 +29,25 @@
             </div>
             <h3>Accent color</h3>
             <div class="settings-buttons">
-                <button data-property="accentColor" data-value="darkgreen" style="background-color: darkgreen;" data-selected></button>
+                <button data-property="accentColor" data-value="darkgreen" style="background-color: darkgreen" data-selected></button>
                 <button data-property="accentColor" data-value="#162f77" style="background-color: #162f37"></button>
                 <button data-property="accentColor" data-value="#b07f43" style="background-color: #b07f43"></button>
                 <button data-property="accentColor" data-value="#333" style="background-color: #333"></button>
             </div>
             <h3>Flyout width</h3>
             <div class="settings-buttons">
-                <button data-property="flyoutWidth" data-value="15vw" style="width: 30px;"></button>
-                <button data-property="flyoutWidth" data-value="25vw" style="width: 50px;" data-selected></button>
-                <button data-property="flyoutWidth" data-value="33vw" style="width: 66px;"></button>
-                <button data-property="flyoutWidth" data-value="45vw" style="width: 90px;"></button>
+                <button data-property="flyoutWidth" data-value="15vw" style="width: 30px"></button>
+                <button data-property="flyoutWidth" data-value="25vw" style="width: 50px" data-selected></button>
+                <button data-property="flyoutWidth" data-value="33vw" style="width: 66px"></button>
+                <button data-property="flyoutWidth" data-value="45vw" style="width: 90px"></button>
             </div>
             <div id="flyout-toggle"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384.97 384.97" style="enable-background:new 0 0 384.97 384.97;" xml:space="preserve"><g><g id="Menu"><path d="M12.03,84.212h360.909c6.641,0,12.03-5.39,12.03-12.03c0-6.641-5.39-12.03-12.03-12.03H12.03C5.39,60.152,0,65.541,0,72.182C0,78.823,5.39,84.212,12.03,84.212z"/><path d="M372.939,180.455H12.03c-6.641,0-12.03,5.39-12.03,12.03s5.39,12.03,12.03,12.03h360.909c6.641,0,12.03-5.39,12.03-12.03S379.58,180.455,372.939,180.455z"/><path d="M372.939,300.758H12.03c-6.641,0-12.03,5.39-12.03,12.03c0,6.641,5.39,12.03,12.03,12.03h360.909c6.641,0,12.03-5.39,12.03-12.03C384.97,306.147,379.58,300.758,372.939,300.758z"/></g><g></g><g></g><g></g><g></g><g></g><g></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg></div>
         </div>
+    </aside>
+    <aside class="info-container">
+        <p>You have <span id="info-num-contacts"></span> contacts.</p>
+        <p>Window width is <span id="info-window-width"></span>px.</p>
+        <p><strong>Quote of the day</strong><br/><span id="info-quote"></span><br/><button id="info-new-quote">Get a new quote</button>*<br/><small>*If the RNG overlords are kind enough.</small></p>
     </aside>
 
     <script type="text/javascript" src="./script.js"></script>

@@ -4,7 +4,8 @@
 
 const names = ['Han Solo', 'Ellen Ripley', 'Malcolm Reynolds', 'Rick Deckard', 'Roy Batty', 'Kathryn Janeway', 'Dana Scully', 'Sarah Connor', 'Kara Thrace', 'John Sheridan', 'Susan Ivanova', 'Ben Kenobi', 'Luke Skywalker', 'Samantha Carter', 'Rose Tyler', 'Elim Garak', 'Gaius Baltar', 'Sarah-Jane Smith', 'Leia Organa', 'River Tam', 'Arthur Dent', 'Jeffrey Sinclair', 'Laura Roslin', 'Emmet Brown', 'Jean-Luc Picard', 'Londo Mollari', 'Donna Noble', 'Samantha Carter', 'Walter Bishop', 'Sam Bell', 'River Song', 'Marty McFly', 'Peter Weyland', 'Gwen Cooper', 'Ellie Arroway'],
     titles = ['UX Designer', 'Software Engineer', 'QA Analyst', 'Creative Director', 'Content', 'Account Manager', 'Program Director', 'Intern'],
-    $cards = document.querySelector('.cards');
+    $cards = document.querySelector('.cards'),
+    numCards = 41;
 
 
 const rand = (min, max) => {
@@ -19,13 +20,13 @@ const getPhone = () => {
     return '(' + rand(201, 999) + ') ' + rand(100, 999) + '-' + rand(1000, 9999);
 }
 
-
-Array.from({ length: 41 }, (x, i) => {
+// Create cards with pseudo-random data
+Array.from({ length: numCards }, (x, i) => {
     $card = document.createElement('div');
     $card.classList.add('card');
 
     const cardName = get(names),
-        cardEmail = cardName.replace(' ', '.').toLowerCase() + '&#8203;@example.com';
+        cardEmail = cardName.replace(' ', '.').toLowerCase() + '&#8203;@example.com'; // &#8203; = breaking space
 
     $card.innerHTML = `
         <div class="card-portrait">
@@ -34,7 +35,6 @@ Array.from({ length: 41 }, (x, i) => {
         <div class="card-portrait-caption">
             <div class="card-name">${cardName}</div>
             <div class="card-title">${get(titles)}</div>
-            
         </div>
         <div class="card-contact">
             <div class="card-phone">
@@ -42,11 +42,11 @@ Array.from({ length: 41 }, (x, i) => {
                 <span>${getPhone()}</span>
             </div>
             <div class="card-fax">
-                <svg class="icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="91.249px" height="91.25px" viewBox="0 0 91.249 91.25" style="enable-background:new 0 0 91.249 91.25;" xml:space="preserve"><g><g><path d="M19.667,14.833H1c-0.552,0-1,0.447-1,1v67.5c0,0.553,0.448,1,1,1h18.667c0.552,0,1-0.447,1-1v-67.5C20.667,15.28,20.219,14.833,19.667,14.833z"/><path d="M90.25,22.373h-2.167v-5.163l-9.59-11.001h-49.91c-1.654,0-3,1.346-3,3v13.164h-2.167c-0.552,0-1,0.447-1,1v60.668c0,0.553,0.448,1,1,1h66.833c0.552,0,1-0.447,1-1V23.373C91.25,22.819,90.802,22.373,90.25,22.373z M40.875,73.375h-9.75v-9.75h9.75V73.375z M40.875,58.375h-9.75v-9.75h9.75V58.375z M40.875,43.375h-9.75v-9.75h9.75V43.375z M55.875,73.375h-9.75v-9.75h9.75V73.375z M55.875,58.375h-9.75v-9.75h9.75V58.375z M55.875,43.375h-9.75v-9.75h9.75V43.375z M70.875,73.375h-9.75v-9.75h9.75V73.375z M70.875,58.375h-9.75v-9.75h9.75V58.375z M70.875,43.375h-9.75v-9.75h9.75V43.375z M84.083,22.373h-54.5V10.208h45.935v8.449h8.522l0.043,0.05V22.373z"/></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>
+                <svg class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="91.249px" height="91.25px" viewBox="0 0 91.249 91.25" style="enable-background:new 0 0 91.249 91.25;" xml:space="preserve"><g><g><path d="M19.667,14.833H1c-0.552,0-1,0.447-1,1v67.5c0,0.553,0.448,1,1,1h18.667c0.552,0,1-0.447,1-1v-67.5C20.667,15.28,20.219,14.833,19.667,14.833z"/><path d="M90.25,22.373h-2.167v-5.163l-9.59-11.001h-49.91c-1.654,0-3,1.346-3,3v13.164h-2.167c-0.552,0-1,0.447-1,1v60.668c0,0.553,0.448,1,1,1h66.833c0.552,0,1-0.447,1-1V23.373C91.25,22.819,90.802,22.373,90.25,22.373z M40.875,73.375h-9.75v-9.75h9.75V73.375z M40.875,58.375h-9.75v-9.75h9.75V58.375z M40.875,43.375h-9.75v-9.75h9.75V43.375z M55.875,73.375h-9.75v-9.75h9.75V73.375z M55.875,58.375h-9.75v-9.75h9.75V58.375z M55.875,43.375h-9.75v-9.75h9.75V43.375z M70.875,73.375h-9.75v-9.75h9.75V73.375z M70.875,58.375h-9.75v-9.75h9.75V58.375z M70.875,43.375h-9.75v-9.75h9.75V43.375z M84.083,22.373h-54.5V10.208h45.935v8.449h8.522l0.043,0.05V22.373z"/></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>
                 <span>${getPhone()}</span>
             </div>
             <div class="card-email">
-                <svg class="icon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 330.001 330.001" style="enable-background:new 0 0 330.001 330.001;" xml:space="preserve"><g id="XMLID_348_"><path id="XMLID_350_" d="M173.871,177.097c-2.641,1.936-5.756,2.903-8.87,2.903c-3.116,0-6.23-0.967-8.871-2.903L30,84.602L0.001,62.603L0,275.001c0.001,8.284,6.716,15,15,15L315.001,290c8.285,0,15-6.716,15-14.999V62.602l-30.001,22L173.871,177.097z"/><polygon id="XMLID_351_" points="165.001,146.4 310.087,40.001 19.911,40 "/></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>
+                <svg class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 330.001 330.001" style="enable-background:new 0 0 330.001 330.001;" xml:space="preserve"><g id="XMLID_348_"><path id="XMLID_350_" d="M173.871,177.097c-2.641,1.936-5.756,2.903-8.87,2.903c-3.116,0-6.23-0.967-8.871-2.903L30,84.602L0.001,62.603L0,275.001c0.001,8.284,6.716,15,15,15L315.001,290c8.285,0,15-6.716,15-14.999V62.602l-30.001,22L173.871,177.097z"/><polygon id="XMLID_351_" points="165.001,146.4 310.087,40.001 19.911,40 "/></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>
                 <span>${cardEmail}</span>
             </div>
         </div>
@@ -54,6 +54,30 @@ Array.from({ length: 41 }, (x, i) => {
 
     $cards.appendChild($card);
 })
+
+/** =====================
+ *  Render aside info 
+ *  ===================== */
+
+const quotes = [
+    'I&rsquo;m sorry, Dave. I&rsquo;m afraid I <em>can</em> do that. <br/><em>-HAL-9001, 2011: It&rsquo;s Really the Future This Time</em>',
+    'Ever have that feeling where you&rsquo;re not sure if you&rsquo;re awake or giving a tech demo? <br/><em>-Neo, Matrix 5: Regressions</em>',
+    'Do or try. There is no don&rsquo;t. <br/><em>-Yoda Kotb, Tomorrow</em>'
+]
+const renderQuote = () => {
+    document.getElementById('info-quote').innerHTML = get(quotes);
+}
+
+document.getElementById('info-num-contacts').innerHTML = numCards;
+document.getElementById('info-window-width').innerHTML = window.innerWidth;
+window.addEventListener('resize', () => {
+    document.getElementById('info-window-width').innerHTML = window.innerWidth;
+})
+renderQuote();
+document.getElementById('info-new-quote').addEventListener('click', () => {
+    renderQuote();
+})
+
 
 /** =====================
  *  Flyout interaction 
@@ -79,6 +103,5 @@ $settingsButtons.forEach($button => {
                 }
             })
         }
-        
     })
 })
